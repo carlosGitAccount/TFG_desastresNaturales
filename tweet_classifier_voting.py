@@ -496,19 +496,4 @@ for i in range(len(SVM_predicted_values)) :
         final_result.append('1')
     else :
         final_result.append('0')
-
-
-
-'''
-for i in range(len(SVM_predicted_values)) :
-    print(SVM_predicted_values[i],XGB_predicted_values[i],Multinomial_predicted_Values[i])
-    print(SVM_predicted_values[i][1],XGB_predicted_values[i][1],Multinomial_predicted_Values[i][1])
-    disaster_probability = SVM_predicted_values[i][1]+XGB_predicted_values[i][1]+ Multinomial_predicted_Values[i][1]
-    non_disaster_probability = SVM_predicted_values[i][0]+XGB_predicted_values[i][0]+ Multinomial_predicted_Values[i][0]
-    
-    if disaster_probability > non_disaster_probability :
-        final_result.append('1')
-    else :
-        final_result.append('0')
-'''
 write_results(test_tweets,final_result)
