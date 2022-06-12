@@ -43,244 +43,18 @@ def create_bigrams(tweet_text) :
 def first_Text_cleaning (tweet_text) :
     stop_words = set(stopwords.words('english'))
     
-    stop_words.update({"\x89û" , "û\x9d", "\x89ÛÒ" , "\x89ÛÓ" , "\x89ÛÏ" , "\x89Ûªs", "\x89Û÷","\x89Û¢" , "\x89Û\x9d","i'll","i'd","he's","there's"
-    ,"we're","that's","they're","i'm","u","can't",'cant','arent','dont','lets','youll','we ve','re','te','thats','you re','rea','they d','we re','werent','i d','Â‰'})
-
-    symbols = string.punctuation    
-    split_text = [word for word in tweet_text.split()]
+    stop_words.update({"i'll","i'd","he's","there's"
+    ,"we're","that's","they're","i'm","u","can't"})
+    
+    symbols = string.punctuation
+    split_text = [word.lower() for word in tweet_text.split()if word not in stop_words and word.lower() not in stop_words]
     clean_text = []
     for word in split_text : 
-        clean_text.append(''.join([char for char in word if char.lower() not in symbols]))
-    revised_sentence = []
-    for word in clean_text : 
-        
-        
-        
-        while  "û" in word:
-               
-            if  re.search("[.]+û+",word) :
-            
-                word=word.replace('û','') 
-            elif re.search("û+[.]+",word) :
-                word=word.replace('û','')
-                
-            elif re.search(".+û+.+",word) :
-            
-                word=word.replace('û',' ')  
-            else :
-                word=word.replace('û','')
-
-        while  "÷" in word:
-               
-            if  re.search("[.]+÷+",word) :
-            
-                word=word.replace('÷','')
-            elif re.search("÷+[.]+",word) :
-                word=word.replace('÷','')
-                
-            elif re.search(".+÷+.+",word) :
-            
-                word=word.replace('÷',' ') 
-            else :
-                word=word.replace('÷','')
-
-        while  "ª" in word:
-               
-            if  re.search("[.]+ª+",word) :
-            
-                word=word.replace('ª','')            
-            elif re.search("ª+[.]+",word) :
-                word=word.replace('ª','')
-                
-            elif re.search(".+ª+.+",word) :
-            
-                word=word.replace('ª',' ')             
-            else :
-                word=word.replace('ª','')
-                
-        while  "ï" in word:
-               
-            if  re.search("[.]+ï+",word) :
-            
-                word=word.replace('ï','')
-               
-                
-            elif re.search("ï+[.]+",word) :
-                word=word.replace('ï','')
-                
-            elif re.search(".+ï+.+",word) :
-            
-                word=word.replace('ï',' ') 
-            else :
-                word=word.replace('ï','')
-        
-        while  "ó" in word:
-               
-            if  re.search("[.]+ó+",word) :
-            
-                word=word.replace('ó','')
-               
-                
-            elif re.search("ó+[.]+",word) :
-                word=word.replace('ó','')
-                
-            elif re.search(".+ó+.+",word) :
-            
-                word=word.replace('ó',' ') 
-            else :
-                word=word.replace('ó','')
-        while  "¢" in word:
-               
-            if  re.search("[.]+¢+",word) :
-            
-                word=word.replace('¢','')
-               
-                
-            elif re.search("¢+[.]+",word) :
-                word=word.replace('¢','')
-                
-            elif re.search(".+¢+.+",word) :
-            
-                word=word.replace('¢',' ') 
-            else :
-                word=word.replace('¢','')
-        while  "å" in word:
-               
-            if  re.search("[.]+å+",word) :
-            
-                word=word.replace('å','')
-               
-                
-            elif re.search("å+[.]+",word) :
-                word=word.replace('å','')
-                
-            elif re.search(".+å+.+",word) :
-            
-                word=word.replace('å',' ') 
-            else :
-                word=word.replace('å','')
-        while  "ê" in word:
-               
-            if  re.search("[.]+ê+",word) :
-            
-                word=word.replace('ê','')
-               
-                
-            elif re.search("ê+[.]+",word) :
-                word=word.replace('ê','')
-                
-            elif re.search(".+ê+.+",word) :
-            
-                word=word.replace('ê',' ') 
-            else :
-                word=word.replace('ê','')
-        while  "ã" in word:
-               
-            if  re.search("[.]+ã+",word) :
-            
-                word=word.replace('ã','')
-               
-                
-            elif re.search("ã+[.]+",word) :
-                word=word.replace('ã','')
-                
-            elif re.search(".+ã+.+",word) :
-            
-                word=word.replace('ã',' ') 
-            else :
-                word=word.replace('ã','')
-        while  "Â" in word:
-               
-            if  re.search("[.]+Â+",word) :
-            
-                word=word.replace('Â','')
-               
-                
-            elif re.search("Â+[.]+",word) :
-                word=word.replace('Â','')
-                
-            elif re.search(".+Â+.+",word) :
-            
-                word=word.replace('Â',' ') 
-            else :
-                word=word.replace('Â','')
-        while  "‰" in word:
-               
-            if  re.search("[.]+‰+",word) :
-            
-                word=word.replace('‰','')
-               
-                
-            elif re.search("‰+[.]+",word) :
-                word=word.replace('‰','')
-                
-            elif re.search(".+‰+.+",word) :
-            
-                word=word.replace('‰',' ') 
-            else :
-                word=word.replace('‰','')   
-        while  "Ã" in word:
-               
-            if  re.search("[.]+Ã+",word) :
-            
-                word=word.replace('Ã','')
-               
-                
-            elif re.search("Ã+[.]+",word) :
-                word=word.replace('Ã','')
-                
-            elif re.search(".+Ã+.+",word) :
-            
-                word=word.replace('Ã',' ') 
-            else :
-                word=word.replace('Ã','')  
-        while  "©" in word:
-               
-            if  re.search("[.]+©+",word) :
-            
-                word=word.replace('©','')
-               
-                
-            elif re.search("©+[.]+",word) :
-                word=word.replace('©','')
-                
-            elif re.search(".+©+.+",word) :
-            
-                word=word.replace('©',' ') 
-            else :
-                word=word.replace('©','')   
-        while  "¬" in word:
-               
-            if  re.search("[.]+¬+",word) :
-            
-                word=word.replace('¬','')
-               
-                
-            elif re.search("¬+[.]+",word) :
-                word=word.replace('¬','')
-                
-            elif re.search(".+¬+.+",word) :
-            
-                word=word.replace('¬',' ') 
-            else :
-                word=word.replace('¬','')  
-        while  "²" in word:
-               
-            if  re.search("[.]+²+",word) :
-            
-                word=word.replace('²','')
-               
-                
-            elif re.search("²+[.]+",word) :
-                word=word.replace('²','')
-                
-            elif re.search(".+²+.+",word) :
-            
-                word=word.replace('²',' ') 
-            else :
-                word=word.replace('²','')           
-        revised_sentence.append(word)
-    return ' '.join([remove_non_ascii(word) for word in revised_sentence if len(word.replace(" ","")) > 1 and  word not in stop_words and word.replace(" ","") not in stop_words and word.lower() not in  stop_words and not word.startswith('http') ]) 
+        clean_text.append(''.join([char for char in word if char.lower() not in symbols and char.isascii()]))
+    
+    
+    
+    return ' '.join([word for word in clean_text if  not word.startswith('http') and  word not in stop_words ]) 
 def uselessWords (total_text) :
     word_frequency = {}
     for text in total_text :
@@ -297,45 +71,62 @@ def create_XgMatrix(dt) :
 
     
 
-    vectorizer = CountVectorizer()  
-    Y = pd.DataFrame(dt.target)
+    
+    tweet_number = len(list(dt.text))
+    training_number = round(tweet_number*0.8)
+    Y_value = pd.DataFrame(dt.target[:training_number])
     tweet_vocabulary = create_vocabulary(tweet_text)
-    vectorizer = CountVectorizer(vocabulary= tweet_vocabulary,ngram_range=(1,2))
-    transformed_X =vectorizer.fit_transform(tweet_text)  
+    vectorizer = CountVectorizer()
+    transformed_X =vectorizer.fit_transform(tweet_text[:tweet_number])  
     column_names = vectorizer.get_feature_names()
     X_dt = pd.DataFrame(transformed_X.toarray(),columns=column_names)   
     enc = OneHotEncoder();
-    final_X = enc.fit_transform(X_dt)[:len(dt.target),:]
-   
-    
+    final_X = enc.fit_transform(X_dt)[:training_number,:]
+    X_validation = enc.fit_transform(X_dt)[training_number:,:]
+    Y_validation =  pd.DataFrame(dt.target[training_number:])
     parameters = {  "booster":"gbtree", 
-                    "max_depth": 10, "eta": 0.5, 
+                    "eta": 0.4, 
                     "objective": "binary:logistic", 
-                    "nthread":2,
-                    "n_estimators" : 200,
+                    "max_depth": 8,
+                    "colsample_bytree" : 0.1,
+                    "n_estimators" : 1000,
                     "verbosity" : 0}
-    XGB_model = xg.XGBClassifier(random_state=42, seed=2, colsample_bytree=0.6)
+    XGB_model = xg.XGBClassifier()
     XGB_model.set_params(**parameters)
     
-    XGB_model.fit(final_X,Y.values.ravel(),verbose=True,eval_set=[(final_X,Y.values.ravel())]
-    
+    XGB_model.fit(final_X,Y_value.values.ravel(),verbose=True,eval_metric="logloss",
+    eval_set=[(final_X,Y_value.values.ravel()),(X_validation,Y_validation.values.ravel())]
+    ,early_stopping_rounds = 50
     ) 
-   
+    new_Y = pd.DataFrame(dt.target)
+    transformed_X =vectorizer.fit_transform(tweet_text)  
+    column_names = vectorizer.get_feature_names()
+    new_X_dt = pd.DataFrame(transformed_X.toarray(),columns=column_names)   
     
-    return XGB_model
     
-def remove_repeatedTweets (tweet_text):
-    final_tweets = []
-    for text in tweet_text :
-        if not text in final_tweets :
-            final_tweets.append(text)
-    return final_tweets    
+    enc = OneHotEncoder();
+    new_final_X = enc.fit_transform(new_X_dt)[:len(dt.target),:]
+    print(new_final_X.shape)
+    new_parameters = {  "booster":"gbtree", 
+                    "eta": 0.4, 
+                    "objective": "binary:logistic", 
+                    "max_depth": 8,
+                    "colsample_bytree" : 0.1,
+                    "n_estimators" : len(XGB_model.get_booster().get_dump()),
+                    "verbosity" : 0}
+    new_XGB_model = xg.XGBClassifier()
+    new_XGB_model.set_params(**new_parameters)
+    
+    new_XGB_model.fit(new_final_X,new_Y.values.ravel(),verbose=True,eval_set=[(new_final_X,new_Y.values.ravel())])
+    
+    return new_XGB_model
+  
 def predict_tweets (dt,xGB_model) :
     
     vectorizer = CountVectorizer()  
     Y = pd.DataFrame(dt.target)
     tweet_vocabulary = create_vocabulary(tweet_text)
-    vectorizer = CountVectorizer(vocabulary= tweet_vocabulary,ngram_range=(1,2))
+    vectorizer = CountVectorizer()
     transformed_X =vectorizer.fit_transform(tweet_text)  
     column_names = vectorizer.get_feature_names()
     X_dt = pd.DataFrame(transformed_X.toarray(),columns=column_names)   
@@ -354,6 +145,7 @@ def write_results (tweets,target) :
                 writer.writerow(tweet_stats) 
             else:
                 writer.writerow([tweet[0],target[tweets.index(tweet)-1]])
+start_time = time.time()   
 training_tweets =obtain_tweets("\\train.csv")
 test_tweets = obtain_tweets("\\test.csv")
 
@@ -364,13 +156,9 @@ for tweet in training_tweets :
     if not first_Text_cleaning(tweet[-2]) in cleaned_training_text:
         cleaned_training_text.append(first_Text_cleaning(tweet[-2]))
         non_repeated_training_tweets.append(tweet)
-
-
-
-
-
 tweet_text = cleaned_training_text +[first_Text_cleaning(tweet[-1]) for tweet in test_tweets[1:]]
 
 train_matrix = create_XgMatrix(create_dataset(non_repeated_training_tweets))
 predicted_values = predict_tweets(create_dataset(non_repeated_training_tweets),train_matrix)
 write_results(test_tweets,predicted_values)
+print("--- %s seconds ---" % (time.time() - start_time))
