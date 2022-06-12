@@ -1,7 +1,8 @@
-import csv,os,pandas as pd,nltk,string,re
+import time, csv,os,pandas as pd,nltk,string,re
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from nltk.stem.porter import PorterStemmer
 nltk.download('stopwords')
 nltk.download('wordnet')
 real_DataPath = os.path.realpath('Data')
@@ -15,258 +16,6 @@ def obtain_tweets(csvfile) :
     return tweets
 def remove_non_ascii(s):
     return "".join(c for c in s if ord(c)<128)
-def clean_text (tweet_text) :
-    
-    stop_words = set(stopwords.words('english'))
-    stop_words.update({"\x89û" , "û\x9d", "\x89ÛÒ" , "\x89ÛÓ" , "\x89ÛÏ" , "\x89Ûªs", "\x89Û÷","\x89Û¢" , "\x89Û\x9d","i'll","i'd","he's","there's"
-    ,"we're","that's","they're","i'm","u","can't",'cant','arent','dont','lets','youll','we ve','re','te','thats','you re','rea','they d','we re','werent','i d','Â‰'})
-    lemmatizer = WordNetLemmatizer()
-    symbols = string.punctuation 
-    split_text = tweet_text.split()
-    clean_text = []
-    for word in split_text : 
-        clean_text.append(''.join([char for char in word if char.lower() not in symbols]))
-        
-       
-    sentence = [lemmatizer.lemmatize(word.lower()) for word in clean_text if word not in stop_words and word.lower() not in stop_words]
-    revised_sentence = []
-    for word in sentence : 
-        
-        
-        
-        while  "û" in word:
-               
-            if  re.search("[.]+û+",word) :
-            
-                word=word.replace('û','') 
-            elif re.search("û+[.]+",word) :
-                word=word.replace('û','')
-                
-            elif re.search(".+û+.+",word) :
-            
-                word=word.replace('û',' ')  
-            else :
-                word=word.replace('û','')
-
-        while  "÷" in word:
-               
-            if  re.search("[.]+÷+",word) :
-            
-                word=word.replace('÷','')
-            elif re.search("÷+[.]+",word) :
-                word=word.replace('÷','')
-                
-            elif re.search(".+÷+.+",word) :
-            
-                word=word.replace('÷',' ') 
-            else :
-                word=word.replace('÷','')
-
-        while  "ª" in word:
-               
-            if  re.search("[.]+ª+",word) :
-            
-                word=word.replace('ª','')            
-            elif re.search("ª+[.]+",word) :
-                word=word.replace('ª','')
-                
-            elif re.search(".+ª+.+",word) :
-            
-                word=word.replace('ª',' ')             
-            else :
-                word=word.replace('ª','')
-                
-        while  "ï" in word:
-               
-            if  re.search("[.]+ï+",word) :
-            
-                word=word.replace('ï','')
-               
-                
-            elif re.search("ï+[.]+",word) :
-                word=word.replace('ï','')
-                
-            elif re.search(".+ï+.+",word) :
-            
-                word=word.replace('ï',' ') 
-            else :
-                word=word.replace('ï','')
-        
-        while  "ó" in word:
-               
-            if  re.search("[.]+ó+",word) :
-            
-                word=word.replace('ó','')
-               
-                
-            elif re.search("ó+[.]+",word) :
-                word=word.replace('ó','')
-                
-            elif re.search(".+ó+.+",word) :
-            
-                word=word.replace('ó',' ') 
-            else :
-                word=word.replace('ó','')
-        while  "¢" in word:
-               
-            if  re.search("[.]+¢+",word) :
-            
-                word=word.replace('¢','')
-               
-                
-            elif re.search("¢+[.]+",word) :
-                word=word.replace('¢','')
-                
-            elif re.search(".+¢+.+",word) :
-            
-                word=word.replace('¢',' ') 
-            else :
-                word=word.replace('¢','')
-        while  "å" in word:
-               
-            if  re.search("[.]+å+",word) :
-            
-                word=word.replace('å','')
-               
-                
-            elif re.search("å+[.]+",word) :
-                word=word.replace('å','')
-                
-            elif re.search(".+å+.+",word) :
-            
-                word=word.replace('å',' ') 
-            else :
-                word=word.replace('å','')
-        while  "ê" in word:
-               
-            if  re.search("[.]+ê+",word) :
-            
-                word=word.replace('ê','')
-               
-                
-            elif re.search("ê+[.]+",word) :
-                word=word.replace('ê','')
-                
-            elif re.search(".+ê+.+",word) :
-            
-                word=word.replace('ê',' ') 
-            else :
-                word=word.replace('ê','')
-        while  "ã" in word:
-               
-            if  re.search("[.]+ã+",word) :
-            
-                word=word.replace('ã','')
-               
-                
-            elif re.search("ã+[.]+",word) :
-                word=word.replace('ã','')
-                
-            elif re.search(".+ã+.+",word) :
-            
-                word=word.replace('ã',' ') 
-            else :
-                word=word.replace('ã','')
-        while  "Â" in word:
-               
-            if  re.search("[.]+Â+",word) :
-            
-                word=word.replace('Â','')
-               
-                
-            elif re.search("Â+[.]+",word) :
-                word=word.replace('Â','')
-                
-            elif re.search(".+Â+.+",word) :
-            
-                word=word.replace('Â',' ') 
-            else :
-                word=word.replace('Â','')
-        while  "‰" in word:
-               
-            if  re.search("[.]+‰+",word) :
-            
-                word=word.replace('‰','')
-               
-                
-            elif re.search("‰+[.]+",word) :
-                word=word.replace('‰','')
-                
-            elif re.search(".+‰+.+",word) :
-            
-                word=word.replace('‰',' ') 
-            else :
-                word=word.replace('‰','')   
-        while  "Ã" in word:
-               
-            if  re.search("[.]+Ã+",word) :
-            
-                word=word.replace('Ã','')
-               
-                
-            elif re.search("Ã+[.]+",word) :
-                word=word.replace('Ã','')
-                
-            elif re.search(".+Ã+.+",word) :
-            
-                word=word.replace('Ã',' ') 
-            else :
-                word=word.replace('Ã','')  
-        while  "©" in word:
-               
-            if  re.search("[.]+©+",word) :
-            
-                word=word.replace('©','')
-               
-                
-            elif re.search("©+[.]+",word) :
-                word=word.replace('©','')
-                
-            elif re.search(".+©+.+",word) :
-            
-                word=word.replace('©',' ') 
-            else :
-                word=word.replace('©','')   
-        while  "¬" in word:
-               
-            if  re.search("[.]+¬+",word) :
-            
-                word=word.replace('¬','')
-               
-                
-            elif re.search("¬+[.]+",word) :
-                word=word.replace('¬','')
-                
-            elif re.search(".+¬+.+",word) :
-            
-                word=word.replace('¬',' ') 
-            else :
-                word=word.replace('¬','')  
-        while  "²" in word:
-               
-            if  re.search("[.]+²+",word) :
-            
-                word=word.replace('²','')
-               
-                
-            elif re.search("²+[.]+",word) :
-                word=word.replace('²','')
-                
-            elif re.search(".+²+.+",word) :
-            
-                word=word.replace('²',' ') 
-            else :
-                word=word.replace('²','')           
-        revised_sentence.append(remove_non_ascii(word))
-        
-    
-    return ' '.join(revised_sentence)
-def text_Words (total_text) :
-    word_frequency = {}
-    for text in total_text :
-        for word in text.split() :
-            word_frequency.update({word:word_frequency.get(word,0)+1})
-    return word_frequency
 def create_bigrams(tweet_text) :
    
     bigram_frequency = {}
@@ -288,13 +37,36 @@ def create_trigrams(tweet_text) :
         
         for trigram in trigrams :
             trigram_frequency.update({trigram : trigram_frequency.get(trigram,0)+1})
-    return {trigram : trigram_frequency.get(trigram) for trigram in trigram_frequency.keys() if trigram_frequency.get(trigram)>1}    
+    return {trigram : trigram_frequency.get(trigram) for trigram in trigram_frequency.keys() if trigram_frequency.get(trigram)>1}  
+   
+def clean_text (tweet_text) :
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+    stop_words.update({"i'll","i'd","he's","there's"
+    ,"we're","that's","they're","i'm","u","can't"})
+    
+    symbols = string.punctuation
+    split_text = [word.lower() for word in tweet_text.split()if word not in stop_words and word.lower() not in stop_words]
+    clean_text = []
+    for word in split_text : 
+        clean_text.append(''.join([char for char in word if char.lower() not in symbols and char.isascii()]))
+    cleaned_text = [word for word in clean_text if  not word.startswith('http') and  word not in stop_words ]
+    
+    return  ' '.join([lemmatizer.lemmatize(word) for word in cleaned_text  ])  
+def text_Words (total_text) :
+    word_frequency = {}
+    for text in total_text :
+        for word in text.split() :
+            word_frequency.update({word:word_frequency.get(word,0)+1})
+    return word_frequency
+   
 
 def create_dataset (tweets,alpha) :
     disasterTweet_text = [clean_text (tweet[-2]) for tweet in tweets[1:] if tweet[-1] == '1']  
     
     non_disasterTweet_text = [clean_text (tweet[-2]) for tweet in tweets[1:] if tweet[-1] == '0']
     
+
     disaster_bigrams= create_bigrams(disasterTweet_text)
     disaster_trigrams = create_trigrams(disasterTweet_text)
     non_disaster_bigrams = create_bigrams(non_disasterTweet_text)
@@ -307,7 +79,7 @@ def create_dataset (tweets,alpha) :
     
     vectorizer = CountVectorizer(vocabulary=list(non_disaster_bigrams.keys()) + list(text_Words(non_disasterTweet_text).keys())
     + list(non_disaster_trigrams.keys())
-    ) 
+    )  
     non_disasterTweet_keywords = vectorizer.fit_transform(non_disasterTweet_text)
     non_disasterTweet_dt = pd.DataFrame(non_disasterTweet_keywords.toarray(),columns=vectorizer.get_feature_names())
     word_frequencyDisasterTweets = {word :disasterTweet_dt[word].sum() for word in disasterTweet_dt.keys()}
@@ -330,6 +102,7 @@ def create_dataset (tweets,alpha) :
     return [word_ProbabilityDisasterTweets,word_ProbabilityNonDisasterTweets]
 def predict_tweet (tweet,probabilities,alpha,probability_disasterTweet,probability_Non_disasterTweet) : 
   
+    
     test_bigrams= create_bigrams([tweet[-1]])
     test_trigrams = create_trigrams([tweet[-1]])
     vectorizer = CountVectorizer(vocabulary= list(test_bigrams.keys()) + list(text_Words([clean_text (tweet[-1])]))
@@ -380,13 +153,15 @@ def write_results (tweets,target) :
                 writer.writerow(tweet_stats) 
             else:                   
                 writer.writerow([tweet[0],target[tweets.index(tweet)-1]])
-            
+start_time = time.time()                 
 training_tweets=obtain_tweets("\\train.csv")
+test_tweets = obtain_tweets("\\test.csv")
 
 probabilities = create_dataset(training_tweets,1.75)
-test_tweets = obtain_tweets("\\test.csv")
+
 probability_disasterTweet = len([tweet in training_tweets for tweet in training_tweets[1:] if tweet[-1]== '1'])/len([tweet in training_tweets for tweet in training_tweets[1:]])
 probability_Non_disasterTweet = len([tweet in training_tweets for tweet in training_tweets[1:] if tweet[-1]== '0'])/len([tweet in training_tweets for tweet in training_tweets[1:]])
 results = [predict_tweet(tweet,probabilities,1.75,probability_disasterTweet,probability_Non_disasterTweet) for tweet in test_tweets[1:]]
 
 write_results(test_tweets,results)
+print("--- %s seconds ---" % (time.time() - start_time))
